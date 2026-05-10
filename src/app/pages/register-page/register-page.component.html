@@ -1,0 +1,60 @@
+<body class="flex items-center justify-center p-6">
+
+    <div class="w-full max-w-md bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 p-8 rounded-2xl shadow-2xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-amber-300">Join Bazaar</h2>
+            <p class="text-slate-400 mt-2">Create your account to get started</p>
+        </div>
+
+        <form class="space-y-5" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <!-- Username -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1.5">Username</label>
+                <input type="text" placeholder="johndoe" 
+                    class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-300/50 focus:border-amber-300 transition-all" formControlName="username">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1.5">Email Address</label>
+                <input type="email" placeholder="name@example.com" 
+                    class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-300/50 focus:border-amber-300 transition-all" formControlName="email">
+            </div>
+
+            <!-- Contact Number -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1.5">Contact Number</label>
+                <input type="tel" placeholder="+1 (555) 000-0000" 
+                    class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-300/50 focus:border-amber-300 transition-all" formControlName="contact">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
+                <input type="password" placeholder="••••••••" 
+                    class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-300/50 focus:border-amber-300 transition-all" formControlName="password">
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1.5">Confirm Password</label>
+                <input type="password" placeholder="••••••••" 
+                    class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-300/50 focus:border-amber-300 transition-all" formControlName="confirmPassword">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" 
+                class="w-full py-3 mt-4 bg-amber-300 hover:bg-amber-400 text-slate-900 font-bold rounded-lg shadow-lg shadow-amber-900/20 transform transition-active:scale-95 duration-200">
+                Create Account
+            </button>
+        </form>
+
+        <!-- Footer link -->
+        <p class="text-center text-slate-400 mt-6 text-sm">
+            Already have an account? 
+            <a [routerLink]="['..', 'login']" class="text-amber-300 hover:underline font-medium">Log in</a>
+        </p>
+    </div>
+
+</body>

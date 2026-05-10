@@ -1,0 +1,86 @@
+
+@if (cart) {
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">Your Cart</h1>
+        <p class="text-slate-400 text-sm mt-1">Review your items before proceeding to checkout.</p>
+      </div>
+    
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left: Cart Items List -->
+        <div class="lg:col-span-8 space-y-4">
+          @for (item of cart.items; track item.productId) {
+            <div class="flex items-center gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl group transition-all hover:border-slate-700">
+              <!-- Product Image (Placeholder) -->
+              <div class="w-20 h-20 bg-slate-800 rounded-xl overflow-hidden flex-shrink-0">
+                 <img [src]="item.productId.imageUrl" [alt]="item.productId.name" class="w-full h-full object-cover">
+              </div>
+    
+              <!-- Product Details -->
+              <div class="flex-grow">
+                <h3 class="text-white font-bold group-hover:text-amber-300 transition-colors">{{ item.productId.name }}</h3>
+                <p class="text-slate-500 text-xs uppercase tracking-widest">Category</p>
+                <div class="mt-2 flex items-center gap-4">
+                   <span class="text-amber-300 font-bold">${{ item.price }}</span>
+                </div>
+              </div>
+    
+              <!-- Quantity Controls -->
+              <div class="flex items-center bg-slate-800 rounded-lg p-1">
+                <button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white" (click)="reduceItemFromCart(item.productId._id)">-</button>
+                <span class="w-8 text-center text-white font-bold text-sm">{{ item.quantity }}</span>
+                <button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white" (click)="addItemToCart(item.productId._id)">+</button>
+              </div>
+    
+              <!-- Remove Button -->
+              <button class="p-2 text-slate-600 hover:text-red-400 transition-colors" (click)="removeItemFromCart(item.productId._id)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          } @empty {
+            <!-- Empty State -->
+            <div class="text-center py-20 bg-slate-900/50 rounded-3xl border-2 border-dashed border-slate-800">
+              <p class="text-slate-500">Your cart is currently empty.</p>
+              <a routerLink="/catalogue" class="text-amber-300 hover:underline mt-4 inline-block">Back to Bazaar</a>
+            </div>
+          }
+        </div>
+    
+        <!-- Right: Order Summary -->
+        <div class="lg:col-span-4">
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl sticky top-4">
+            <h2 class="text-xl font-bold text-white mb-6">Order Summary</h2>
+            
+            <div class="space-y-4 mb-6">
+              <div class="flex justify-between text-slate-400">
+                <span>Subtotal</span>
+                <span class="text-white">${{ cart.totalPrice }}</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>Shipping</span>
+                <span class="text-green-400">Free</span>
+              </div>
+              <div class="h-[1px] bg-slate-800"></div>
+              <div class="flex justify-between text-lg font-bold text-white">
+                <span>Total</span>
+                <span class="text-amber-300">${{ cart.totalPrice }}</span>
+              </div>
+            </div>
+    
+            <button class="w-full bg-amber-300 hover:bg-amber-400 text-slate-900 font-bold py-4 rounded-xl transition-all shadow-lg shadow-amber-300/10 active:scale-95" (click)="placeOrder()">
+              Place Order
+            </button>
+    
+            <!-- <p class="text-[10px] text-slate-500 mt-4 text-center">
+              Secure checkout powered by Bazaar Pay.
+            </p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+} @else {
+  <p>Loading cart...</p>
+}

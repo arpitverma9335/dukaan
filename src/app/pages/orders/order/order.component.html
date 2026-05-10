@@ -1,0 +1,95 @@
+@if (order$ | async; as order) {
+  <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      
+      <!-- Breadcrumb / Back Link -->
+      <nav class="mb-8">
+        <a [routerLink]="['..']" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          Back to Orders
+        </a>
+      </nav>
+  
+      <!-- Main Content -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        
+        <!-- Order Header Section -->
+        <div class="px-6 py-8 border-b border-gray-200 sm:flex sm:items-center sm:justify-between bg-white">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900">Order #{{ order._id }}</h1>
+            <p class="text-sm text-gray-500 mt-1">Placed on {{ order.date | date:'medium' }} • {{ order.items.length }} items</p>
+          </div>
+          <div class="mt-4 sm:mt-0 flex space-x-3">
+            <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">Get Help</button>
+            <button class="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium text-white hover:bg-indigo-700 transition">Invoice</button>
+          </div>
+        </div>
+  
+        <!-- Tracking Progress Bar -->
+        <div class="px-6 py-8 bg-gray-50/50">
+          <div class="relative">
+            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+              <div style="width: 65%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"></div>
+            </div>
+            <div class="flex justify-between text-xs font-medium text-gray-600">
+              <div class="text-indigo-600">Order Placed</div>
+              <div class="text-indigo-600">Processing</div>
+              <div class="text-indigo-600 font-bold underline">Shipped</div>
+              <div class="text-gray-400">Delivered</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Items List -->
+        <ul class="divide-y divide-gray-200 px-6">
+          <li *ngFor="let item of order.items" class="py-6 flex items-center">
+            <img [src]="item.productId.imageUrl" class="h-24 w-24 flex-none rounded-lg bg-gray-100 object-cover object-center border border-gray-200">
+            <div class="ml-6 flex-auto">
+              <h3 class="font-medium text-gray-900">{{ item.productId.name }}</h3>
+              <p class="text-sm text-gray-500 mt-1">Quantity: {{ item.quantity }}</p>
+            </div>
+            <p class="flex-none font-semibold text-gray-900">{{ item.price | currency }}</p>
+          </li>
+        </ul>
+  
+        <!-- Footer Info Section -->
+        <div class="bg-gray-50 px-6 py-8 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Delivery Address -->
+          <div>
+            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">Delivery Address</h4>
+            <address class="not-italic text-sm text-gray-600 leading-relaxed">
+              {{ order.shipping.name }}<br>
+              {{ order.shipping.street }}<br>
+              {{ order.shipping.city }}, {{ order.shipping.zip }}
+            </address>
+          </div>
+  
+          <!-- Order Summary -->
+          <div>
+            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">Payment Summary</h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between text-gray-600">
+                <span>Subtotal</span>
+                <span>{{ order.totalPrice | currency }}</span>
+              </div>
+              <div class="flex justify-between text-gray-600">
+                <span>Shipping</span>
+                <span class="text-green-600 font-medium">Free</span>
+              </div>
+              <div class="flex justify-between text-gray-600">
+                <span>Tax</span>
+                <span>$0.00</span>
+              </div>
+              <div class="flex justify-between text-lg font-bold text-gray-900 pt-4 border-t border-gray-200">
+                <span>Total</span>
+                <span>{{ order.totalPrice | currency }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+}

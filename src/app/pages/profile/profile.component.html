@@ -1,0 +1,83 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl mx-auto">
+    
+    <div class="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+      
+      <!-- Card Header -->
+      <div class="px-8 py-5 border-b border-gray-100 flex justify-between items-center bg-white">
+        <h2 class="text-xl font-bold text-gray-900">Shipping Address</h2>
+        <button *ngIf="!isEditMode" (click)="toggleEdit()" 
+          class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+          Edit Address
+        </button>
+      </div>
+
+      <!-- VIEW MODE (Read Only) -->
+      <div *ngIf="!isEditMode" class="p-8 space-y-4 animate-in fade-in duration-300">
+        <div class="grid grid-cols-1 gap-1">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Recipient</span>
+          <p class="text-lg font-medium text-gray-900">{{ addressData.name }}</p>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-1">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Address</span>
+          <p class="text-gray-700">{{ addressData.street }}</p>
+          <p class="text-gray-700">{{ addressData.city }}, {{ addressData.state }} {{ addressData.zip }}</p>
+          <p class="text-gray-700">{{ addressData.country }}</p>
+        </div>
+      </div>
+
+      <!-- EDIT MODE (Form) -->
+      <form *ngIf="isEditMode && addressForm" [formGroup]="addressForm" (ngSubmit)="onSave()" class="p-8 space-y-6 animate-in slide-in-from-bottom-2 duration-300">
+        <div class="grid grid-cols-1 gap-6">
+          <!-- Name -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" formControlName="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
+          </div>
+
+          <!-- Street -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+            <input type="text" formControlName="street" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
+          </div>
+
+          <!-- City & State -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+              <input type="text" formControlName="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
+              <input type="text" formControlName="state" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
+          </div>
+
+          <!-- Country & Zip -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+              <input type="text" formControlName="country" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Zip Code</label>
+              <input type="text" formControlName="zip" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100">
+          <button type="button" (click)="toggleEdit()" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900">Cancel</button>
+          <button type="submit" [disabled]="addressForm.invalid" 
+            class="px-6 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-700 disabled:opacity-50">
+            Update Address
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

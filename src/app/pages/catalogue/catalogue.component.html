@@ -1,0 +1,21 @@
+<!-- Changed py-12 to pt-4 (top) and pb-12 (bottom) -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12">
+    
+    <!-- Header Section: Reduced mb-10 to mb-8 for tighter feel -->
+    <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-6">
+        <div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Catalogue</h1>
+            <p class="text-slate-400 text-sm mt-1">Discover our curated selection of premium goods.</p>
+        </div>
+        <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">
+            {{ (productsToRender$ | async)?.length || 0 }} Items
+        </span>
+    </div>
+    
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        @for (item of productsToRender$ | async; track item._id) {
+            <app-product [product]="item" class="flex justify-center"></app-product>
+        }
+    </div>
+</div>

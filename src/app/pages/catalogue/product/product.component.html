@@ -1,0 +1,52 @@
+<!-- Reduced max-w to xs (20rem) and tightened padding -->
+<div
+  class="group relative w-full max-w-xs overflow-hidden rounded-xl bg-slate-900 border border-slate-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-amber-500/10">
+
+  <!-- Image Container: Changed to aspect-video or fixed height for a shorter look -->
+  <div class="aspect-[4/3] overflow-hidden bg-slate-800">
+    <img [src]="product.imageUrl" alt="Product Image"
+      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+    <!-- Smaller Badge -->
+    <span
+      class="absolute top-2 left-2 rounded-full bg-amber-300 px-2 py-0.5 text-[10px] font-bold text-slate-900 shadow-md">
+      New
+    </span>
+  </div>
+
+  <!-- Content: Tightened padding from p-5 to p-3 -->
+  <div class="p-3">
+    <div class="mb-1 flex items-center justify-between">
+      <!-- Shrank text to text-sm -->
+      <h3 class="text-sm font-bold text-white group-hover:text-amber-300 transition-colors truncate pr-2">
+        {{ product.name }}
+      </h3>
+      <span class="text-md font-black text-amber-300">${{ product.price }}</span>
+    </div>
+
+    <!-- Reduced margin and limited to 1 line for compactness -->
+    <p class="mb-3 text-xs leading-relaxed text-slate-400 line-clamp-1">
+      {{ product.description }}
+    </p>
+
+    <!-- Slimmer Button -->
+    @if(product.existsInCart) {
+    <button
+      class="flex w-full items-center justify-center gap-1.5 rounded-lg bg-amber-300 py-2 text-xs font-bold text-slate-900 transition-all hover:bg-slate-800 hover:text-white active:scale-95"
+      (click)="removeItemFromCart()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+      </svg>
+      Remove
+    </button>
+    } @else {
+    <button
+      class="flex w-full items-center justify-center gap-1.5 rounded-lg bg-slate-800 py-2 text-xs font-bold text-white transition-all hover:bg-amber-300 hover:text-slate-900 active:scale-95"
+      (click)="addItemToCart()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Add
+    </button>
+    }
+  </div>
+</div>

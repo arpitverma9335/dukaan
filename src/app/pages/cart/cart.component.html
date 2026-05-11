@@ -44,7 +44,7 @@
             <!-- Empty State -->
             <div class="text-center py-20 bg-slate-900/50 rounded-3xl border-2 border-dashed border-slate-800">
               <p class="text-slate-500">Your cart is currently empty.</p>
-              <a routerLink="/catalogue" class="text-amber-300 hover:underline mt-4 inline-block">Back to Bazaar</a>
+              <a [routerLink]="['..', 'products']" class="text-amber-300 hover:underline mt-4 inline-block">Back to Bazaar</a>
             </div>
           }
         </div>

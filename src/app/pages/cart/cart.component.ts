@@ -3,13 +3,13 @@ import { HttpCustomService } from '../../services/http.service';
 import { catchError, map, Observable } from 'rxjs';
 import { Cart } from '../../interfaces/interfaces';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { DataCentreService } from '../../services/data-centre.service';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })

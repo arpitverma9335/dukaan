@@ -1,0 +1,38 @@
+<div class="min-h-screen bg-slate-900 flex items-center justify-center px-6 py-24 sm:py-32 lg:px-8">
+  <div class="text-center">
+    <!-- Visual Element -->
+    <p class="text-6xl font-bold text-amber-400">404</p>
+    
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+      Product Not Found
+    </h1>
+    
+    <p class="mt-6 text-base leading-7 text-slate-400">
+      Sorry, we couldn’t find the page or product you’re looking for.
+    </p>
+
+    <!-- Call to Action Buttons -->
+    <div class="mt-10 flex items-center justify-center gap-x-6">
+      <a
+        [routerLink]="['..', 'products']"
+        class="rounded-md bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 transition-all"
+      >
+        Back to Shopping
+      </a>
+      
+      <a routerLink="/support" class="text-sm font-semibold text-white hover:text-amber-300">
+        Contact Support <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <!-- Helpful Links for E-commerce -->
+    <div class="mt-16">
+      <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Popular Categories</h2>
+      <ul role="list" class="mt-4 flex justify-center gap-6 text-sm text-slate-400">
+        <li><a routerLink="/category/electronics" class="hover:text-amber-400">Electronics</a></li>
+        <li><a routerLink="/category/fashion" class="hover:text-amber-400">Fashion</a></li>
+        <li><a routerLink="/orders" class="hover:text-amber-400">Your Orders</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

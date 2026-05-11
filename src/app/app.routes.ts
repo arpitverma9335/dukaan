@@ -1,5 +1,6 @@
 import { Router, Routes } from '@angular/router';
 import { inject } from '@angular/core';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -58,5 +59,13 @@ export const routes: Routes = [
             return !!token ? true : router.parseUrl('/login');
         }], // Simple auth guard
         loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
+    },
+    {
+        path: '404',
+        component: NotFoundComponent
+    },
+    {
+        path: '**',
+        redirectTo: '/404'
     }
 ];

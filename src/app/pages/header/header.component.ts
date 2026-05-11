@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loginStatusSubscription!: Subscription;
 
   cartQuantity$: Observable<number> = of(0);
+  isMobileMenuOpen = false;
 
   constructor(private router: Router, private loginService: LoginService, private ds: DataCentreService) { }
 
@@ -36,6 +37,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.loginService.clearCredentials();
     this.router.navigate(['..', 'login']);
+  }
+
+  toggleMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
   ngOnDestroy(): void {

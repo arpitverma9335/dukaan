@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import config from './../../config.json';
+import { environment } from '../../environments/environment';
 import { Address, Cart, OrderDetails, OrderSummary, Product } from '../interfaces/interfaces';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class HttpCustomService {
 
   constructor(private http: HttpClient) { }
 
+  private readonly apiUrl = environment.baseUrl;
+
   registerUser(userData: {
     username: string;
     email: string;
@@ -17,7 +19,7 @@ export class HttpCustomService {
     password: string;
     confirmPassword: string;
   }) {
-    return this.http.post(config.apiBaseUrl + '/users/register', userData);
+    return this.http.post(this.apiUrl + '/users/register', userData);
   }
 
   loginUser(credentials: { username: string; password: string }) {
@@ -32,7 +34,7 @@ export class HttpCustomService {
           contact: string;
           cartQuantity: number;
       }
-    }>(config.apiBaseUrl + '/users/login', credentials);
+    }>(this.apiUrl + '/users/login', credentials);
   }
 
 
@@ -44,35 +46,35 @@ export class HttpCustomService {
         "data": [
           Product
         ]
-      }>(config.apiBaseUrl + '/products');
+      }>(this.apiUrl + '/products');
   }
 
   getCart() {
     return this.http.get<{
       success: boolean;
       cart: Cart;
-    }>(config.apiBaseUrl + '/cart');
+    }>(this.apiUrl + '/cart');
   }
 
   updateItemInCart(productId: string, quantity: number) {
     return this.http.post<{
         success: boolean;
         cart: Cart;
-      }>(config.apiBaseUrl + `/cart/update`, { productId, quantity });
+      }>(this.apiUrl + `/cart/update`, { productId, quantity });
   }
 
   removeItemInCart(productId: string) {
     return this.http.post<{
         success: boolean;
         cart: Cart;
-      }>(config.apiBaseUrl + `/cart/remove`, { productId });
+      }>(this.apiUrl + `/cart/remove`, { productId });
   }
 
   fetchAddress() {
     return this.http.get<{
       success: boolean;
       address: Address;
-    }>(config.apiBaseUrl + '/users/address');
+    }>(this.apiUrl + '/users/address');
   }
 
   saveAddress(addressData: {
@@ -89,27 +91,27 @@ export class HttpCustomService {
         message: string;
         address: Address;
       }
-    >(config.apiBaseUrl + '/users/address', addressData);
+    >(this.apiUrl + '/users/address', addressData);
   }
 
   placeOrder() {
     return this.http.post<{
       success: boolean;
       message: string;
-    }>(config.apiBaseUrl + '/orders/place', {});
+    }>(this.apiUrl + '/orders/place', {});
   }
 
   fetchAllOrders() {
     return this.http.get<{
       success: boolean;
       orders: OrderSummary[]; // You can replace 'any' with a proper Order interface if you have one
-    }>(config.apiBaseUrl + '/orders');
+    }>(this.apiUrl + '/orders');
   }
 
   fetchOrderDetails(orderId: string) {
     return this.http.get<{
       success: boolean;
       order: OrderDetails; // You can replace 'any' with a proper Order interface if you have one
-    }>(config.apiBaseUrl + `/orders/${orderId}`);
+    }>(this.apiUrl + `/orders/${orderId}`);
   }
 }

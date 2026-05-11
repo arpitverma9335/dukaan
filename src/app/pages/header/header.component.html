@@ -14,48 +14,80 @@
     <!-- Right Side -->
     <div class="flex items-center gap-2 sm:gap-6">
       
-      <!-- Desktop Nav (Hidden on Mobile) -->
       @if (isLoggedIn) {
-      <nav class="hidden md:flex items-center gap-6">
-        <a [routerLink]="['products']" routerLinkActive="text-amber-300" class="nav-link">Products</a>
-        <a [routerLink]="['orders']" routerLinkActive="text-amber-300" class="nav-link">Orders</a>
-      </nav>
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a [routerLink]="['products']" routerLinkActive="text-amber-300" class="nav-link">Products</a>
+          <a [routerLink]="['orders']" routerLinkActive="text-amber-300" class="nav-link">Orders</a>
+        </nav>
 
-      <!-- Cart & Profile -->
-      <div class="flex items-center gap-2">
-        <button class="p-2 text-slate-400 hover:text-amber-300" [routerLink]="['cart']">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-        </button>
+        <!-- Actions -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button class="p-2 text-slate-400 hover:text-amber-300 transition-colors" [routerLink]="['cart']">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </button>
 
-        <!-- Mobile Menu Toggle Button -->
-        <button (click)="toggleMenu()" class="md:hidden p-2 text-slate-400 hover:text-amber-300 transition-colors">
+          <!-- Desktop User Info & Sign Out -->
+          <div class="hidden md:flex items-center gap-3 pl-4 border-l border-slate-800">
+            <div class="text-right">
+              <p class="text-xs font-bold text-amber-300 leading-none mb-1">{{ username }}</p>
+              <button (click)="logout()" class="text-[10px] uppercase tracking-tighter text-slate-500 hover:text-red-400 transition-colors">
+                Sign Out
+              </button>
+            </div>
+            <img [routerLink]="['profile']" 
+                 src="https://ui-avatars.com/api/?name={{username}}&background=fcd34d&color=0f172a" 
+                 class="w-9 h-9 rounded-full border border-slate-700 hover:border-amber-300 cursor-pointer transition-all" 
+                 alt="User profile">
+          </div>
+
+          <!-- Mobile Toggle -->
+          <button (click)="toggleMenu()" class="md:hidden p-2 text-slate-400 hover:text-amber-300">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+        </div>
+      } 
+      @else {
+        <!-- Logged Out Desktop View -->
+        <div class="hidden sm:flex items-center gap-4">
+          <button [routerLink]="['login']" class="text-slate-400 hover:text-white font-semibold text-sm transition-colors">
+            Login
+          </button>
+          <button [routerLink]="['register']" class="px-5 py-2 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold rounded-lg transition-all active:scale-95">
+            Register
+          </button>
+        </div>
+        
+        <!-- Mobile Toggle for Logged Out -->
+        <button (click)="toggleMenu()" class="sm:hidden p-2 text-slate-400 hover:text-amber-300">
           <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
-
-        <!-- Desktop Profile -->
-        <img [routerLink]="['profile']" 
-             src="https://ui-avatars.com/api/?name={{username}}&background=fcd34d&color=0f172a" 
-             class="hidden md:block w-9 h-9 rounded-full border border-slate-700 hover:border-amber-300 cursor-pointer" 
-             alt="User profile">
-      </div>
-      } 
+      }
     </div>
   </div>
 
   <!-- Mobile Slide-out Menu -->
-  @if (isMobileMenuOpen && isLoggedIn) {
-  <div class="md:hidden absolute top-full left-0 w-full bg-slate-900 border-b border-slate-800 p-6 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
-    <a [routerLink]="['products']" (click)="toggleMenu()" class="text-lg font-semibold text-slate-300">Products</a>
-    <a [routerLink]="['orders']" (click)="toggleMenu()" class="text-lg font-semibold text-slate-300">Orders</a>
-    <a [routerLink]="['profile']" (click)="toggleMenu()" class="text-lg font-semibold text-slate-300">My Profile</a>
-    <hr class="border-slate-800">
-    <button (click)="logout(); toggleMenu()" class="text-left text-red-400 font-bold uppercase tracking-widest text-xs">
-      Sign Out
-    </button>
-  </div>
+  @if (isMobileMenuOpen) {
+    <div class="md:hidden absolute top-full left-0 w-full bg-slate-900 border-b border-slate-800 p-6 flex flex-col gap-6 animate-in slide-in-from-top shadow-2xl">
+      @if (isLoggedIn) {
+        <a [routerLink]="['products']" (click)="toggleMenu()" class="mobile-link">Products</a>
+        <a [routerLink]="['orders']" (click)="toggleMenu()" class="mobile-link">Orders</a>
+        <a [routerLink]="['profile']" (click)="toggleMenu()" class="mobile-link">My Profile</a>
+        <div class="h-[1px] bg-slate-800"></div>
+        <button (click)="logout(); toggleMenu()" class="flex items-center gap-2 text-red-400 font-bold uppercase tracking-widest text-xs">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+          Sign Out
+        </button>
+      } @else {
+        <button [routerLink]="['login']" (click)="toggleMenu()" class="w-full py-3 text-white border border-slate-700 rounded-xl">Login</button>
+        <button [routerLink]="['register']" (click)="toggleMenu()" class="w-full py-3 bg-amber-400 text-slate-900 font-bold rounded-xl">Register</button>
+      }
+    </div>
   }
 </header>
